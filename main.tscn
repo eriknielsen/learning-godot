@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3t0lxbtlitsu"]
+[gd_scene load_steps=16 format=3 uid="uid://c3t0lxbtlitsu"]
 
 [ext_resource type="PackedScene" uid="uid://brlvvi03qe7t" path="res://player.tscn" id="1_k35kp"]
 [ext_resource type="Script" path="res://main.gd" id="1_w2p3y"]
 [ext_resource type="PackedScene" uid="uid://ci1v0dqw8vd0r" path="res://mob.tscn" id="2_vkrkt"]
 [ext_resource type="FontFile" uid="uid://bfygqf8pmkcfq" path="res://fonts/Montserrat-Medium.ttf" id="4_l6b21"]
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="5_rls6r"]
+[ext_resource type="Texture2D" uid="uid://dk2a81bac0eaw" path="res://art/greybox/texture_03.png" id="6_i323l"]
+[ext_resource type="Texture2D" uid="uid://cc4ij5yofycph" path="res://art/greybox/texture_08.png" id="7_4mkvq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aw21d"]
 size = Vector3(60, 2, 60)
@@ -31,6 +33,9 @@ default_font_size = 22
 
 [sub_resource type="Theme" id="Theme_ulgpv"]
 Label/styles/normal = null
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_u7sm0"]
+diffuse_texture = ExtResource("6_i323l")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_w2p3y")
@@ -132,5 +137,14 @@ offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "retry_label"
+
+[node name="HealthBar" type="TextureProgressBar" parent="UserInterface"]
+layout_mode = 0
+offset_left = 628.0
+offset_top = 27.0
+offset_right = 1652.0
+offset_bottom = 1051.0
+texture_under = SubResource("CanvasTexture_u7sm0")
+texture_progress = ExtResource("7_4mkvq")
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_timer_timeout"]

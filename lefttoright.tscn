@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://p78u7nt5kn2"]
+[gd_scene load_steps=13 format=3 uid="uid://p78u7nt5kn2"]
 
 [ext_resource type="Texture2D" uid="uid://d4jc86jbi0r43" path="res://art/greybox/texture_02.png" id="1_cufey"]
 [ext_resource type="Script" path="res://lefttoright.gd" id="1_m1dax"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://camera_3d.gd" id="2_mjamd"]
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="6_c8hie"]
 [ext_resource type="Script" path="res://level_label.gd" id="6_mcf2v"]
+[ext_resource type="Texture2D" uid="uid://cjvaxxmntx44o" path="res://art/greybox/texture_07.png" id="10_6l2rt"]
+[ext_resource type="Script" path="res://health_bar.gd" id="11_pcdp0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmufy"]
 albedo_texture = ExtResource("1_cufey")
@@ -122,7 +124,20 @@ offset_right = 123.0
 offset_bottom = 50.0
 script = ExtResource("6_c8hie")
 
+[node name="HealthBar" type="TextureProgressBar" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -512.0
+offset_right = 512.0
+offset_bottom = 1024.0
+grow_horizontal = 2
+texture_progress = ExtResource("10_6l2rt")
+script = ExtResource("11_pcdp0")
+
 [connection signal="on_death" from="Player" to="." method="_on_player_death"]
 [connection signal="on_get_experience" from="Player" to="UserInterface/ExperienceLevel" method="_on_player_on_get_experience"]
 [connection signal="on_get_level" from="Player" to="UserInterface/LevelLabel" method="_on_player_on_get_level"]
+[connection signal="on_hit" from="Player" to="UserInterface/HealthBar" method="_on_player_on_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

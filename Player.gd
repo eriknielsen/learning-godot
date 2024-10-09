@@ -1,10 +1,9 @@
 extends CharacterBody3D
 
-# Emitted when the player was hit by a mob.
-# Put this at the top of the script.
 signal on_death
 signal on_get_experience(amount)
 signal on_get_level(level)
+signal on_hit(health)
 
 # How fast the player moves in meters per second.
 @export var speed = 14
@@ -15,19 +14,31 @@ signal on_get_level(level)
 # Vertical impulse applied to the character upon bouncing over a mob in
 # meters per second.
 @export var bounce_impulse = 16
-@export var weapon1: PackedScene
+@export var starting_weapon: Item
 @export var max_health:float = 100
+
+@onready var health = max_health
 
 var target_velocity = Vector3.ZERO
 
 var experience: int
 var level: int = 1
 
-@onready var health = max_health
+var weapons = []
+
+func _ready() -> void:
+	weapons.append(starting_weapon)
+	#GlobalConsoleCommands.player = self
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("weapon1"):
-		spawn_weapon()
+		spawn_weapon(0)
+	elif Input.is_action_just_pressed("weapon2"):
+		spawn_weapon(1)
+	elif Input.is_action_just_pressed("weapon3"):
+		spawn_weapon(2)
+	elif Input.is_action_just_pressed("weapon4"):
+		spawn_weapon(3)
 	# We create a local variable to store the input direction.
 	var direction = Vector3.ZERO
 	# We check for each move input and update the direction accordingly.
@@ -93,8 +104,11 @@ func die():
 	on_death.emit()
 	queue_free()
 
-func spawn_weapon():
-	var weapon = weapon1.instantiate()
+func spawn_weapon(index):
+	if index < 0 || index > weapons.size():
+		pass
+
+	var weapon = weapons[index].visuals_3d.instantiate()
 	weapon.on_kill.connect(on_kill)
 	add_child(weapon)
 	weapon.initialize(level, position)
@@ -103,6 +117,8 @@ func _on_mob_detector_body_entered(body):
 	health -= 1
 	if health <= 0:
 		die()
+	else:
+		on_hit.emit(health)
 
 func on_kill():
 	experience += 1
@@ -111,3 +127,6 @@ func on_kill():
 		experience = 0
 		on_get_level.emit(level)
 	on_get_experience.emit(experience)
+
+func add_weapon(item: Item):
+	weapons.append(item)

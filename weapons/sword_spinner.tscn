@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgq58tyg5igoi"]
+
+[ext_resource type="Script" path="res://weapons/spinner.gd" id="1_bllmf"]
+[ext_resource type="PackedScene" uid="uid://c5y3e7svpyc8q" path="res://weapons/sword.tscn" id="2_jpt5s"]
+
+[node name="Spinner" type="Node3D"]
+script = ExtResource("1_bllmf")
+weapon = ExtResource("2_jpt5s")
+scenePerLevel = 2
+dmgPerLevel = 5
+durationPerLevel = 5
+cooldownPerLevel = 5
+offset = 5
+full_rotation_time = 3.0
