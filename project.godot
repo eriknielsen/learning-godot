@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Squash the Creeps (3D)"
-run/main_scene="res://lefttoright.tscn"
+run/main_scene="res://scenes/lefttoright.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
 [autoload]
 
-MusicPlayer="*res://music_player.tscn"
+MusicPlayer="*res://scenes/music_player.tscn"
 Console="*res://addons/console/console.gd"
-GlobalConsoleCommands="*res://global_console_commands.gd"
+GlobalConsoleCommands="*res://scripts/global_console_commands.gd"
 
 [display]
 

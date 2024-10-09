@@ -7,13 +7,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#var target_position =  Vector3.ZERO
-	#
-	#target_position.x = target.basis.x
-	#target_position.y = target.basis.y
-	#target_position.z = target.basis.z
 	if target != null:
 		look_at_from_position(position, target.position)
 	

@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://p78u7nt5kn2"]
 
 [ext_resource type="Texture2D" uid="uid://d4jc86jbi0r43" path="res://art/greybox/texture_02.png" id="1_cufey"]
-[ext_resource type="Script" path="res://lefttoright.gd" id="1_m1dax"]
-[ext_resource type="PackedScene" uid="uid://ci1v0dqw8vd0r" path="res://mob.tscn" id="2_1wnly"]
-[ext_resource type="PackedScene" uid="uid://brlvvi03qe7t" path="res://player.tscn" id="2_i25y1"]
-[ext_resource type="Script" path="res://camera_3d.gd" id="2_mjamd"]
-[ext_resource type="Script" path="res://ScoreLabel.gd" id="6_c8hie"]
-[ext_resource type="Script" path="res://level_label.gd" id="6_mcf2v"]
+[ext_resource type="Script" path="res://scripts/lefttoright.gd" id="1_m1dax"]
+[ext_resource type="PackedScene" uid="uid://ci1v0dqw8vd0r" path="res://scenes/mob.tscn" id="2_1wnly"]
+[ext_resource type="PackedScene" uid="uid://brlvvi03qe7t" path="res://scenes/player.tscn" id="2_i25y1"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_mjamd"]
+[ext_resource type="Script" path="res://scripts/ScoreLabel.gd" id="6_c8hie"]
+[ext_resource type="Script" path="res://scripts/level_label.gd" id="6_mcf2v"]
 [ext_resource type="Texture2D" uid="uid://cjvaxxmntx44o" path="res://art/greybox/texture_07.png" id="10_6l2rt"]
-[ext_resource type="Script" path="res://health_bar.gd" id="11_pcdp0"]
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="11_pcdp0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmufy"]
 albedo_texture = ExtResource("1_cufey")

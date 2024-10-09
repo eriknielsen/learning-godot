@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://brlvvi03qe7t"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_2m8n0"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_2m8n0"]
 [ext_resource type="PackedScene" uid="uid://c2vrbte5eqhyx" path="res://art/player.glb" id="1_pb2ml"]
 [ext_resource type="Resource" uid="uid://i8t1s4tksn8f" path="res://items/spinning_sword.tres" id="2_cqff1"]
 
