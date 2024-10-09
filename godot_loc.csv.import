@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dn3b72p8n6wfw"
+
+[deps]
+
+files=["res://godot_loc.en.translation", "res://godot_loc.es.translation"]
+
+source_file="res://godot_loc.csv"
+dest_files=["res://godot_loc.en.translation", "res://godot_loc.es.translation"]
+
+[params]
+
+compress=true
+delimiter=0

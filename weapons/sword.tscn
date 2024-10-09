@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5y3e7svpyc8q"]
+
+[ext_resource type="PackedScene" uid="uid://2af88vn4wpt2" path="res://art/rpgassets/Sword.fbx" id="1_b6vg2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hvgqs"]
+
+[node name="Weapon" type="Node3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Sword" parent="." instance=ExtResource("1_b6vg2")]
+
+[node name="EnemyDetector" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDetector"]
+shape = SubResource("CapsuleShape3D_hvgqs")

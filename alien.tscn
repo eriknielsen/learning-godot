@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ioaeml0hwm46"]
+
+[ext_resource type="PackedScene" uid="uid://6lv6llvmgunl" path="res://art/monsters/Alien.gltf" id="1_dc6ec"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Alien" parent="NavigationAgent3D" instance=ExtResource("1_dc6ec")]
