@@ -7,6 +7,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	update_text(UiData.level)
 	pass
 
 func update_text(level):

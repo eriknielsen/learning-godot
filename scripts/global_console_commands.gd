@@ -16,5 +16,5 @@ func add_weapon(name):
 	print("mjau")
 	var path = "res://items/%s.tres" % name
 	var loaded = load(path)
-	get_node("/root/Node3D/Player").add_weapon(loaded)
+	get_node("/root/main/Player").add_weapon(loaded)
 #endregion // Player

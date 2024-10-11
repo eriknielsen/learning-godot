@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://i8t1s4tksn8f"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://i8t1s4tksn8f"]
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_athft"]
 [ext_resource type="PackedScene" uid="uid://dgq58tyg5igoi" path="res://weapons/sword_spinner.tscn" id="2_15g5n"]
+[ext_resource type="PackedScene" uid="uid://bwalgh7wrrnr" path="res://scenes/spinning_sword_ui.tscn" id="2_r2pub"]
 
 [resource]
 script = ExtResource("1_athft")
 name = "100 Swords"
 visuals_3d = ExtResource("2_15g5n")
+visuals_2d = ExtResource("2_r2pub")

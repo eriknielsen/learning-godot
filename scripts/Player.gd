@@ -4,6 +4,7 @@ signal on_death
 signal on_get_experience(amount)
 signal on_get_level(level)
 signal on_hit(health)
+signal on_update_inventory(weapons)
 
 # How fast the player moves in meters per second.
 @export var speed = 14
@@ -27,8 +28,10 @@ var level: int = 1
 var weapons = []
 
 func _ready() -> void:
-	weapons.append(starting_weapon)
-	#GlobalConsoleCommands.player = self
+	add_weapon(starting_weapon)
+	UiData.health = health
+	UiData.experience = experience
+	UiData.level = level
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("weapon1"):
@@ -105,12 +108,16 @@ func die():
 	queue_free()
 
 func spawn_weapon(index):
-	if index < 0 || index > weapons.size():
-		pass
-
-	var weapon = weapons[index].visuals_3d.instantiate()
+	if index < 0 || index >= weapons.size():
+		return
+	
+	var item =  weapons[index]
+	var weapon = item.visuals_3d.instantiate()
 	weapon.on_kill.connect(on_kill)
-	add_child(weapon)
+	if item.follow_pivot:
+		$Pivot.add_child(weapon)
+	else:
+		add_child(weapon)
 	weapon.initialize(level, position)
 
 func _on_mob_detector_body_entered(body):
@@ -118,15 +125,22 @@ func _on_mob_detector_body_entered(body):
 	if health <= 0:
 		die()
 	else:
+		UiData.health = health
 		on_hit.emit(health)
 
 func on_kill():
-	experience += 1
+	add_experience(1)
+
+func add_weapon(item: Item):
+	weapons.append(item)
+	on_update_inventory.emit(weapons)
+
+func add_experience(amount):
+	experience += amount
 	if experience > 10:
 		level += 1
 		experience = 0
 		on_get_level.emit(level)
+		UiData.level = level
 	on_get_experience.emit(experience)
-
-func add_weapon(item: Item):
-	weapons.append(item)
+	UiData.experience = experience

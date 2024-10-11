@@ -1,13 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://p78u7nt5kn2"]
+[gd_scene load_steps=18 format=3 uid="uid://p78u7nt5kn2"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s0ve8"]
 [ext_resource type="PackedScene" uid="uid://ci1v0dqw8vd0r" path="res://scenes/mob.tscn" id="2_4panb"]
 [ext_resource type="Texture2D" uid="uid://d4jc86jbi0r43" path="res://art/greybox/texture_02.png" id="3_46vph"]
+[ext_resource type="PackedScene" uid="uid://dg132cg2pm862" path="res://art/rpgassets/Rollofpaper.fbx" id="4_4w70i"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="4_5hslb"]
 [ext_resource type="PackedScene" uid="uid://brlvvi03qe7t" path="res://scenes/player.tscn" id="5_ejgme"]
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="5_qs2pr"]
 [ext_resource type="Script" path="res://scripts/level_label.gd" id="6_01fj6"]
 [ext_resource type="Script" path="res://scripts/ScoreLabel.gd" id="7_s2kp3"]
-[ext_resource type="Texture2D" uid="uid://cjvaxxmntx44o" path="res://art/greybox/texture_07.png" id="8_lclbv"]
+[ext_resource type="Script" path="res://scripts/weaponstory.gd" id="9_3ogre"]
 [ext_resource type="Script" path="res://scripts/health_bar.gd" id="9_s25xx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmufy"]
@@ -22,10 +24,21 @@ uv1_world_triplanar = true
 
 [sub_resource type="Curve3D" id="Curve3D_m1t54"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 76),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, -5.31376, 6.48419, 31.8472, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
 }
-point_count = 2
+point_count = 4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mcogf"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5g1hm"]
+direction = Vector3(0, 0, 1)
+spread = 3.795
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_kgsc7"]
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_s0ve8")
@@ -50,12 +63,12 @@ size = Vector3(15, 1, 222)
 material = SubResource("StandardMaterial3D_uvoac")
 
 [node name="Platform" type="CSGBox3D" parent="level/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 3, 36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 6, 36)
 size = Vector3(10, 1, 17)
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="level/CSGCombiner3D/Platform"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.5, -0.5, -10.5)
-polygon = PackedVector2Array(-2, 0, -2, 1, 1, 0, 8, -3)
+polygon = PackedVector2Array(-2, 0, -2, 1, 1, 0, 14, -6)
 depth = 8.5
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="level/CSGCombiner3D/Platform"]
@@ -69,6 +82,23 @@ curve = SubResource("Curve3D_m1t54")
 [node name="SpawnLocation" type="PathFollow3D" parent="level/SpawnPath"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
+[node name="Rollofpaper" parent="level" instance=ExtResource("4_4w70i")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -4, 5, 41)
+script = ExtResource("5_qs2pr")
+
+[node name="Area3D" type="Area3D" parent="level/Rollofpaper"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level/Rollofpaper/Area3D"]
+shape = SubResource("CapsuleShape3D_mcogf")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="level/Rollofpaper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_5g1hm")
+draw_pass_1 = SubResource("BoxMesh_kgsc7")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, -0.12941, 0.224144, 0, 0.866025, 0.5, -0.258819, -0.482963, 0.836516, 0, 0, 0)
 
@@ -78,7 +108,7 @@ script = ExtResource("4_5hslb")
 target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("5_ejgme")]
-transform = Transform3D(1, 0, 0, 0, 0.988054, 0.154109, 0, -0.154109, 0.988054, -3, 4.35578, 30)
+transform = Transform3D(1, 0, 0, 0, 0.988054, 0.154109, 0, -0.154109, 0.988054, -3, 8.35578, 30)
 
 [node name="MobTimer" type="Timer" parent="."]
 autostart = true
@@ -101,11 +131,18 @@ grow_vertical = 2
 color = Color(0.0509804, 0.0509804, 0.0509804, 0.662745)
 
 [node name="RespawnLabel" type="Label" parent="UserInterface/DeathBackground"]
-layout_mode = 0
-offset_left = 310.0
-offset_top = 249.0
-offset_right = 393.0
-offset_bottom = 272.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -11.5
+offset_right = 41.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "retry_label"
 
 [node name="LevelLabel" type="Label" parent="UserInterface"]
@@ -120,8 +157,8 @@ script = ExtResource("6_01fj6")
 layout_mode = 0
 offset_left = 83.0
 offset_top = 27.0
-offset_right = 123.0
-offset_bottom = 50.0
+offset_right = 180.0
+offset_bottom = 87.0
 script = ExtResource("7_s2kp3")
 
 [node name="HealthBar" type="TextureProgressBar" parent="UserInterface"]
@@ -131,13 +168,25 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -512.0
 offset_right = 512.0
-offset_bottom = 1024.0
+offset_bottom = 64.0
 grow_horizontal = 2
-texture_progress = ExtResource("8_lclbv")
+nine_patch_stretch = true
+texture_progress = ExtResource("3_46vph")
 script = ExtResource("9_s25xx")
 
+[node name="Weaponstory" type="HBoxContainer" parent="UserInterface"]
+layout_direction = 2
+layout_mode = 0
+offset_left = 498.0
+offset_top = 915.0
+offset_right = 1457.0
+offset_bottom = 1046.0
+script = ExtResource("9_3ogre")
+
+[connection signal="body_entered" from="level/Rollofpaper/Area3D" to="level/Rollofpaper" method="_on_area_3d_body_entered"]
 [connection signal="on_death" from="Player" to="." method="_on_player_death"]
 [connection signal="on_get_experience" from="Player" to="UserInterface/ExperienceLevel" method="_on_player_on_get_experience"]
 [connection signal="on_get_level" from="Player" to="UserInterface/LevelLabel" method="_on_player_on_get_level"]
 [connection signal="on_hit" from="Player" to="UserInterface/HealthBar" method="_on_player_on_hit"]
+[connection signal="on_update_inventory" from="Player" to="UserInterface/Weaponstory" method="_on_player_on_update_inventory"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

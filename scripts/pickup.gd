@@ -1,17 +1,16 @@
-extends TextureProgressBar
+extends Node3D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.value = self.max_value
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.value = UiData.health
 	pass
 
 
-func _on_player_on_hit(health) -> void:
-	self.value = health
-	print(self.value)
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	get_node("../../Player").add_experience(5)
+	queue_free()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ds6ehgfj73odh"]
 
-[ext_resource type="Script" path="res://weapons/spinner.gd" id="1_rdw8u"]
+[ext_resource type="Script" path="res://scripts/spinner.gd" id="1_rdw8u"]
 [ext_resource type="PackedScene" uid="uid://bolq534f0jxp1" path="res://weapons/book.tscn" id="2_wd2of"]
 
 [node name="Spinner" type="Node3D"]
